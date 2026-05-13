@@ -45,7 +45,7 @@ class GestionUser extends BaseController{
                 'actif' => $employer['actif']
             ]);
 
-            return redirect()->to('/employe/MesDemandes')->with('success', 'Connexion réussie.');
+            return redirect()->to('employe/dashboard')->with('success', 'Connexion réussie.');
         }
 
         $errorMsg = 'Email ou mot de passe incorrect.';
