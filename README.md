@@ -16,3 +16,23 @@ php spark db:seed DatabaseSeeder
 ``` bash
 php spark serve
 ```
+
+## 2.Connexion/login:
+Pour se connecter à l'application, vous avez le choix de se connecter avec trois comptes de test:
+- Administrateur:
+    
+    - email: admin@techmada.mg
+    - mot de passe: `` admin123 ``
+
+
+- Responsable RH:
+
+    - email: rh@techmada.mg
+    - mot de passe: `` rh123 ``
+
+
+- Employé:
+
+    - email: employe@techmada.mg
+    - mot de passe: `` emp123 ``
+    
