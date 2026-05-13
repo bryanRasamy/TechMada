@@ -1,85 +1,72 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= esc($title ?? 'HealthyDiet') ?></title>
+    <title><?= esc($title ?? 'TechMada RH') ?></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="<?= base_url('assets/app.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/style.css') ?>">
 </head>
+
 <body>
-    <div class="app-shell">
-        <aside class="sidebar">
-            <div class="sidebar-brand">
-                <h2>HealthyDiet</h2>
-                <p>Votre espace bien-être pour suivre vos objectifs, votre IMC et vos régimes alimentaires.</p>
-            </div>
-
-            <nav class="sidebar-nav">
-                <a class="sidebar-link" href="<?= base_url('regime') ?>">Mon regime</a>
-                <a class="sidebar-link" href="<?= base_url('profil') ?>">Mon profil</a>
-                <a class="sidebar-link" href="<?= base_url('regime/objectif') ?>">Mes objectifs</a>
-
-                <?php $userSession = session()->get('user'); if ($userSession && isset($userSession['id_statut']) && $userSession['id_statut'] == 2) { ?>
-                    <div style="margin: 15px 0 5px 20px; font-weight: bold; font-size: 0.8em; color: #94a3b8; text-transform: uppercase;">ADMINISTRATION</div>
-                    <a class="sidebar-link" href="<?= base_url('back-office/dashboard') ?>">Tableau de bord</a>
-                    <a class="sidebar-link" href="<?= base_url('back-office/regimes') ?>">Régimes</a>
-                    <a class="sidebar-link" href="<?= base_url('back-office/activites') ?>">Activités sportives</a>
-                    <a class="sidebar-link" href="<?= base_url('back-office/codes') ?>">Codes de recharge</a>
-                <?php } ?>
-            </nav>
-
-            <div class="sidebar-note">
-                Votre espace personnel.
-            </div>
-        </aside>
-
-        <div class="main-panel">
-            <header class="topbar">
-                <div class="topbar-brand">HealthyDiet</div>
-
-                <div class="topbar-actions">
-                    <?php 
-                    $userSession = session()->get('user'); 
-                    $isGold = isset($userSession['option_gold']) && $userSession['option_gold'] > 0;
-                    if (!$isGold && $userSession) {
-                    ?>
-                    <form action="<?= base_url('profil/acheter-gold') ?>" method="post" class="form-gold">
-                        <?= csrf_field() ?>
-                        <button type="submit" class="btn-gold">Acheter Option Gold (20 000 Ar)</button>
-                    </form>
-                    <?php } elseif ($isGold && $userSession) { ?>
-                        <div class="badge-gold">Membre Gold</div>
-                    <?php } ?>
-                    <div class="profile-pill">
-                        <?= esc($userSession['nom']) ?>
-                    </div>
-                    <a class="logout-btn" href="<?= base_url('logout') ?>">Se déconnecter</a>
+    <section id="page-dashboard-employe" style="margin-top:3rem">
+        <div class="app-wrap">
+            <!-- SIDEBAR EMPLOYÉ -->
+            <aside class="sidebar">
+                <div class="sidebar-brand">
+                    <div class="sidebar-logo-icon"><i class="bi bi-briefcase"></i></div>
+                    <div class="sidebar-brand-name">TechMada RH<span>Espace employé</span></div>
                 </div>
-            </header>
-
-            <main class="page-content">
-                <div class="content-card">
-                    <?php if (session()->getFlashdata('success')) { ?>
-                        <div class="alert-success">
-                            <?= session()->getFlashdata('success') ?>
+                <div class="sidebar-section">Menu</div>
+                <ul class="sidebar-nav">
+                    <li><a href="#page-dashboard-employe" class="active"><i class="bi bi-grid-1x2"></i> Tableau de bord</a></li>
+                    <li><a href="#page-form-conge"><i class="bi bi-plus-circle"></i> Nouvelle demande</a></li>
+                    <li>
+                        <a href="#page-mes-conges">
+                            <i class="bi bi-calendar3"></i> Mes demandes
+                            <span class="nav-badge alert"><?= esc((string) ($nombreDemandesEnAttente ?? 0)) ?></span>
+                        </a>
+                    </li>
+                    <li><a href="#page-profil-employe"><i class="bi bi-person"></i> Mon profil</a></li>
+                </ul>
+                <div class="sidebar-user">
+                    <div class="s-user-row">
+                        <div class="avatar av-green"><?= esc($initialesEmploye ?? 'EM') ?></div>
+                        <div>
+                            <div class="user-name"><?= esc($nomEmploye ?? 'Utilisateur') ?></div>
+                            <div class="user-role">Employé · <?= esc($departementEmploye ?? 'Non renseigné') ?></div>
                         </div>
-                    <?php } ?>
+                        <a href="<?= base_url('logout') ?>" style="margin-left:auto;color:rgba(255,255,255,.25);font-size:1.1rem" title="Déconnexion"><i class="bi bi-box-arrow-right"></i></a>
+                    </div>
+                </div>
+            </aside>
 
-                    <?php if (session()->getFlashdata('error')) { ?>
-                        <div class="alert-error">
-                            <?= session()->getFlashdata('error') ?>
-                        </div>
-                    <?php } ?>
-                    
+            <div class="main">
+                <div class="topbar">
+                    <div>
+                        <div class="topbar-title"><?= esc($title ?? 'TechMada RH') ?></div>
+                        <div class="topbar-breadcrumb">Accueil</div>
+                    </div>
+                    <div class="topbar-actions">
+                        <a href="#page-form-conge" class="btn-forest" style="padding:7px 14px;font-size:.82rem">
+                            <i class="bi bi-plus-lg"></i> Nouvelle demande
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="content">
                     <?= $this->renderSection('content') ?>
                 </div>
-            </main>
 
-            <footer class="footer">
-                HealthyDiet
-            </footer>
+
+                <div class="footer-app"><i class="bi bi-c-circle"></i> 2026 <span>TechMada RH</span> — Projet CodeIgniter 4</div>
+            </div>
         </div>
-    </div>
+    </section>
 </body>
+
 </html>

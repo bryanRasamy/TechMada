@@ -20,7 +20,7 @@ class TypesCongeSeeder extends Seeder
                 'deductible'    => 1,
             ],
             [
-                'libelle'       => 'Congé maternité',
+                'libelle'       => 'Congé spécial',
                 'jours_annuels' => 90,
                 'deductible'    => 1,
             ],

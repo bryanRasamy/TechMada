@@ -6,7 +6,7 @@ INSERT INTO departements(nom,description) VALUES
 INSERT INTO types_conge(libelle,jours_annuels,deductible) VALUES
 ('Congé annuel',30,0),
 ('Congé maladie',20,1),
-('Congé maternité',90,1);
+('Congé spécial',90,1);
 
 INSERT INTO employes(nom,prenom,email,password,role,departement_id,date_embauche,actif) VALUES
 ('Raminiarisoa','Aina','aina@example.com','admin123','admin',1,'2023-01-15',1),
