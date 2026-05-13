@@ -1,0 +1,65 @@
+ERROR - 2026-05-13 07:28:51 --> Error connecting to the database: mysqli_sql_exception: Connection refused in /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query()
+#4 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#5 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists()
+#6 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#7 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Commands/Database/Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest()
+#8 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/CLI/SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#9 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Commands/Database/Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked()
+#10 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/CLI/Commands.php(74): CodeIgniter\Commands\Database\Migrate->run()
+#11 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/CLI/Console.php(47): CodeIgniter\CLI\Commands->run()
+#12 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Boot.php(442): CodeIgniter\CLI\Console->run()
+#13 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Boot.php(166): CodeIgniter\Boot::runCommand()
+#14 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/spark(87): CodeIgniter\Boot::bootSpark()
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Connection refused in /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query()
+#3 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#4 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists()
+#5 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#6 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Commands/Database/Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest()
+#7 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/CLI/SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#8 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Commands/Database/Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked()
+#9 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/CLI/Commands.php(74): CodeIgniter\Commands\Database\Migrate->run()
+#10 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/CLI/Console.php(47): CodeIgniter\CLI\Commands->run()
+#11 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Boot.php(442): CodeIgniter\CLI\Console->run()
+#12 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Boot.php(166): CodeIgniter\Boot::runCommand()
+#13 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/spark(87): CodeIgniter\Boot::bootSpark()
+#14 {main}
+ERROR - 2026-05-13 07:33:57 --> Error connecting to the database: Error: Class "SQLite3" not found in /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/SQLite3/Connection.php:111
+Stack trace:
+#0 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query()
+#4 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#5 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists()
+#6 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Database/MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#7 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Commands/Database/Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest()
+#8 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/CLI/SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#9 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Commands/Database/Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked()
+#10 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/CLI/Commands.php(74): CodeIgniter\Commands\Database\Migrate->run()
+#11 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/CLI/Console.php(47): CodeIgniter\CLI\Commands->run()
+#12 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Boot.php(442): CodeIgniter\CLI\Console->run()
+#13 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/system/Boot.php(166): CodeIgniter\Boot::runCommand()
+#14 /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/spark(87): CodeIgniter\Boot::bootSpark()
+#15 {main}
+CRITICAL - 2026-05-13 08:37:12 --> TypeError: CodeIgniter\HTTP\RedirectResponse::back(): Argument #1 ($code) must be of type ?int, string given, called in /home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/app/Controllers/GestionUser.php on line 52
+[Method: POST, Route: login/authentifier]
+in SYSTEMPATH/HTTP/RedirectResponse.php on line 77.
+ 1 APPPATH/Controllers/GestionUser.php(52): CodeIgniter\HTTP\RedirectResponse->back()
+ 2 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\GestionUser->authentifier()
+ 3 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/bryan/Documents/ITU/S4/SI/Devoirs/TechMada/public/index.php')
