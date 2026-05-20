@@ -23,7 +23,7 @@ class CongesModel extends Model{
         'employe_id' => 'required|integer',
         'type_conge_id' => 'required|integer',
         'date_debut' => 'required|date',
-        'date_fin' => 'required|date|after_or_equal[date_debut]',
+        'date_fin' => 'required|date',
         'nb_jours' => 'required|integer',
         'motif' => 'required|max_length[255]',
         'statut' => 'permit_empty|in_list[en_attente,accepte,refuse]',

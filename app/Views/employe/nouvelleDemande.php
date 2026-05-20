@@ -2,11 +2,23 @@
 
 <?= $this->section('content') ?>
 
-<section id="page-form-conge" style="margin-top:3rem">
+<section id="page-form-conge">
   <div class="app-wrap">
     <div class="content">
+<<<<<<< Updated upstream
       <?php $errors = session('errors') ?? []; ?>
       <form action="<?= base_url('employe/nouvelle-demande/ajout') ?>" method="post">
+=======
+      <?php if (session()->getFlashdata('error')){ ?>
+            <div class="flash flash-error">
+                <i class="bi bi-exclamation-circle-fill"></i>
+                <?= esc(session()->getFlashdata('error')) ?>
+            </div>
+      <?php } ?>
+      
+      <form action="<?= base_url('employe/nouvelle-demande/ajout') ?>" method="post">
+        <?= csrf_field() ?>
+>>>>>>> Stashed changes
         <div style="display:grid;grid-template-columns:1fr 300px;gap:1.5rem;align-items:start" class="form-layout">
 
           <div>
@@ -23,25 +35,19 @@
                     </option>
                   <?php } ?>
                 </select>
-                <?php if (! empty($errors['type_conge_id'])) { ?>
-                  <div class="f-error"><i class="bi bi-exclamation-circle"></i> <?= esc($errors['type_conge_id']) ?></div>
-                <?php } ?>
+                
               </div>
 
               <div class="form-grid-2" style="margin-bottom:1rem">
                 <div class="f-group">
                   <label class="f-label">Date de début <span style="color:var(--danger)">*</span></label>
                   <input type="date" name="date_debut" value="<?= esc(old('date_debut')) ?>" class="f-input" />
-                  <?php if (! empty($errors['date_debut'])) { ?>
-                    <div class="f-error"><i class="bi bi-exclamation-circle"></i> <?= esc($errors['date_debut']) ?></div>
-                  <?php } ?>
+                  
                 </div>
                 <div class="f-group">
                   <label class="f-label">Date de fin <span style="color:var(--danger)">*</span></label>
                   <input type="date" name="date_fin" value="<?= esc(old('date_fin')) ?>" class="f-input" />
-                  <?php if (! empty($errors['date_fin'])) { ?>
-                    <div class="f-error"><i class="bi bi-exclamation-circle"></i> <?= esc($errors['date_fin']) ?></div>
-                  <?php } ?>
+                  
                 </div>
               </div>
 
@@ -53,9 +59,7 @@
               <div class="f-group" style="margin-bottom:1rem">
                 <label class="f-label">Motif <span style="color:var(--danger)">*</span></label>
                 <textarea name="motif" class="f-textarea" rows="5"><?= esc(old('motif')) ?></textarea>
-                <?php if (! empty($errors['motif'])) { ?>
-                  <div class="f-error"><i class="bi bi-exclamation-circle"></i> <?= esc($errors['motif']) ?></div>
-                <?php } ?>
+                
                 <div class="f-hint">Le motif est visible par le responsable RH.</div>
               </div>
 

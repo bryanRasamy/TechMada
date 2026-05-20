@@ -88,7 +88,7 @@ class GestionEmploye extends BaseController{
         return view('employe/mesDemandes', $donneesVue);
     }
 
-    public function formulaireCongé(){
+    public function formulaireConge(){
         $sessionEmploye = session()->get('user');
 
         if (! $sessionEmploye || empty($sessionEmploye['id'])) {
@@ -172,7 +172,7 @@ class GestionEmploye extends BaseController{
         }
 
         $idEmploye = $sessionEmploye['id'];
-        $typeCongeId = (int) $this->request->getPost('type_conge_id');
+        $typeCongeId = $this->request->getPost('type_conge_id');
         $dateDebut = $this->request->getPost('date_debut');
         $dateFin = $this->request->getPost('date_fin');
         $motif = trim($this->request->getPost('motif'));
@@ -202,11 +202,12 @@ class GestionEmploye extends BaseController{
             'statut' => 'en_attente',
         ];
 
-        if (! $congeModele->insert($donneesConge)) {
-            return redirect()->back()->withInput()->with('errors', $congeModele->errors());
+        if ($congeModele->insert($donneesConge)) {
+            return redirect()->to('employe/mes-demandes')->with('success', 'Votre demande a été soumise avec succès.');
+        } else {
+            $errors = implode(', ', $congeModele->errors());
+            return redirect()->to('employe/nouvelle-demande')->withInput()->with('error', "Erreur lors de la soumission de votre demande : " . $errors);
         }
-
-        return redirect()->to('employe/mes-demandes');
     }
     
 
@@ -221,8 +222,6 @@ class GestionEmploye extends BaseController{
 
         try {
             $employeModele = new EmployesModel();
-            $congeModele = new CongesModel();
-            $soldeModele = new SoldesModel();
 
             $donneesEmploye = $employeModele
                 ->select('employes.*, departements.nom AS nom_departement')

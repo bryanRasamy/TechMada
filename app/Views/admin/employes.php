@@ -5,18 +5,18 @@
       <div class="form-section">
         <h3><i class="bi bi-person-plus" style="color:var(--forest);margin-right:6px"></i>Ajouter un employé</h3>
         
-        <?php if (session()->getFlashdata('error')) : ?>
+        <?php if (session()->getFlashdata('error')){ ?>
             <div class="flash flash-error">
                 <i class="bi bi-exclamation-circle-fill"></i>
                 <?= esc(session()->getFlashdata('error')) ?>
             </div>
-        <?php endif ?>
-        <?php if (session()->getFlashdata('success')) : ?>
+        <?php } ?>
+        <?php if (session()->getFlashdata('success')) { ?>
             <div class="flash flash-success">
                 <i class="bi bi-check-circle-fill"></i>
                 <?= esc(session()->getFlashdata('success')) ?>
             </div>
-        <?php endif ?>
+        <?php } ?>
 
         <form action="<?= base_url('admin/employes/ajouter') ?>" method="post">
             <?= csrf_field() ?>
