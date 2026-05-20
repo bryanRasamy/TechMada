@@ -6,7 +6,7 @@
   <div class="app-wrap">
     <div class="content">
       <?php $errors = session('errors') ?? []; ?>
-      <form action="<?= base_url('employe/nouvelle-demande') ?>" method="post">
+      <form action="<?= base_url('employe/nouvelle-demande/ajout') ?>" method="post">
         <div style="display:grid;grid-template-columns:1fr 300px;gap:1.5rem;align-items:start" class="form-layout">
 
           <div>

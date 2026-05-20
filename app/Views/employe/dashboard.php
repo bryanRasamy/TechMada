@@ -104,7 +104,7 @@
                     <div class="data-card">
                         <div class="data-card-head">
                             <h3>Mes dernières demandes</h3>
-                            <a href="#page-mes-conges" style="font-size:.8rem;color:var(--forest);text-decoration:none">Voir tout →</a>
+                            <a href="<?= base_url('employe/mes-demandes') ?>" style="font-size:.8rem;color:var(--forest);text-decoration:none">Voir tout →</a>
                         </div>
                         <table class="tbl">
                             <thead>
@@ -128,20 +128,28 @@
                                             if ($statutTechnique === 'accepte' || $statutTechnique === 'approuve' || $statutTechnique === 'approuvee') {
                                                 $classeStatut = 's-approuvee';
                                                 $libelleStatut = 'approuvée';
-                                            }
-
-                                            if ($statutTechnique === 'refuse' || $statutTechnique === 'refusee') {
+                                            } elseif ($statutTechnique === 'refuse' || $statutTechnique === 'refusee') {
                                                 $classeStatut = 's-refusee';
                                                 $libelleStatut = 'refusée';
                                             }
 
-                                            $dateDebut = ! empty($demande['date_debut']) ? date('d/m/Y', strtotime($demande['date_debut'])) : '—';
-                                            $dateFin = ! empty($demande['date_fin']) ? date('d/m/Y', strtotime($demande['date_fin'])) : '—';
+                                            $dateDebut = ! empty($demande['date_debut']) ? date('d M Y', strtotime($demande['date_debut'])) : '—';
+                                            $dateFin = ! empty($demande['date_fin']) ? date('d M Y', strtotime($demande['date_fin'])) : '—';
                                             $nombreJoursDemande = $demande['nb_jours'] ?? 0;
                                             $libelleDemande = isset($demande['libelle_type']) && is_string($demande['libelle_type']) && $demande['libelle_type'] !== '' ? $demande['libelle_type'] : 'Congé';
+
+                                            $typeClass = 't-annuel';
+                                            $libelleTypeLower = strtolower($libelleDemande);
+                                            if (strpos($libelleTypeLower, 'maladie') !== false) {
+                                                $typeClass = 't-maladie';
+                                            } elseif (strpos($libelleTypeLower, 'spécial') !== false || strpos($libelleTypeLower, 'special') !== false) {
+                                                $typeClass = 't-special';
+                                            } elseif (strpos($libelleTypeLower, 'sans solde') !== false || strpos($libelleTypeLower, 'sans_solde') !== false) {
+                                                $typeClass = 't-sans-solde';
+                                            }
                                         ?>
                                         <tr>
-                                            <td><span class="type-badge t-annuel"><?= esc($libelleDemande) ?></span></td>
+                                            <td><span class="type-badge <?= esc($typeClass) ?>"><?= esc($libelleDemande) ?></span></td>
                                             <td class="td-muted"><?= esc($dateDebut) ?></td>
                                             <td class="td-muted"><?= esc($dateFin) ?></td>
                                             <td class="td-mono"><?= esc((string) $nombreJoursDemande) ?> j</td>
