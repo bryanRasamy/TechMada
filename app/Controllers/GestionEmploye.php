@@ -227,5 +227,71 @@ class GestionEmploye extends BaseController{
 
         return view('employe/dashboard', $donneesVue);
     }
+
+    public function calendrier(){
+        $sessionEmploye = session()->get('user');
+
+        if (! $sessionEmploye || empty($sessionEmploye['id'])) {
+            return redirect()->to('/');
+        }
+
+        $idEmploye = $sessionEmploye['id'];
+
+        try {
+            $employeModele = new EmployesModel();
+            $congeModele = new CongesModel();
+
+            $donneesEmploye = $employeModele
+                ->select('employes.*, departements.nom AS nom_departement')
+                ->join('departements', 'departements.id = employes.departement_id', 'left')
+                ->find($idEmploye);
+
+            if (! $donneesEmploye) {
+                $donneesEmploye = $sessionEmploye;
+            }
+
+            $nomCompletEmploye = trim(sprintf('%s %s', $donneesEmploye['prenom'] ?? '', $donneesEmploye['nom'] ?? ''));
+            if ($nomCompletEmploye === '') {
+                $nomCompletEmploye = trim(sprintf('%s %s', $sessionEmploye['prenom'] ?? '', $sessionEmploye['nom'] ?? ''));
+            }
+
+            $initialesEmploye = [];
+            $morceauxNom = preg_split('/\s+/', $nomCompletEmploye ?: '');
+            if (is_array($morceauxNom)) {
+                foreach ($morceauxNom as $morceauNom) {
+                    if ($morceauNom !== '') {
+                        $initialesEmploye[] = strtoupper(substr($morceauNom, 0, 1));
+                    }
+
+                    if (count($initialesEmploye) >= 2) {
+                        break;
+                    }
+                }
+            }
+
+            $congesEtendus = $congeModele
+                ->select('conges.*, types_conge.libelle AS type_conge_nom')
+                ->join('types_conge', 'types_conge.id = conges.type_conge_id', 'left')
+                ->where('employe_id', $idEmploye)
+                ->findAll();
+
+            $nombreDemandesEnAttente = $congeModele
+                ->where('employe_id', $idEmploye)
+                ->where('statut', 'en_attente')
+                ->countAllResults();
+
+            return view('employe/calendrier', [
+                'title' => 'Mon Calendrier - TechMada',
+                'conges' => $congesEtendus,
+                'nomEmploye' => $nomCompletEmploye,
+                'departementEmploye' => $donneesEmploye['nom_departement'] ?? '',
+                'initialesEmploye' => implode('', $initialesEmploye),
+                'nombreDemandesEnAttente' => $nombreDemandesEnAttente
+            ]);
+        } catch (\Exception $e) {
+            log_message('error', '[ERREUR GESTION EMPLOYE - Calendrier] ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Une erreur inattendue est survenue.');
+        }
+    }
 }
 ?>

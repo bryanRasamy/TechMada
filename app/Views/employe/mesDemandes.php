@@ -28,8 +28,8 @@
             </tr>
         </thead>
         <tbody>
-            <?php if (! empty($toutesLesDemandes)): ?>
-                <?php foreach ($toutesLesDemandes as $demande): 
+            <?php if (! empty($toutesLesDemandes)){ ?>
+                <?php foreach ($toutesLesDemandes as $demande){
                     $demande = (array) $demande;
                     $dateDebut = ! empty($demande['date_debut']) ? new DateTime($demande['date_debut']) : null;
                     $dateFin = ! empty($demande['date_fin']) ? new DateTime($demande['date_fin']) : null;
@@ -76,27 +76,27 @@
                     <td class="td-mono"><?= $duree ?> j</td>
                     <td><span class="statut <?= esc($statutClass) ?>"><?= esc($statutLabel) ?></span></td>
                     <td class="td-muted" style="font-size:.78rem; <?php if ($statutColor): ?>color:<?= $statutColor ?>;<?php endif; ?>">
-                        <?php if ($statutColor && $commentaire !== '—'): ?>
+                        <?php if ($statutColor && $commentaire !== '—'){ ?>
                             <i class="bi bi-check-circle"></i>
-                        <?php endif; ?>
+                        <?php } ?>
                         <?= $commentaire ?>
                     </td>
                     <td>
-                        <?php if (strpos($statut, 'en_attente') !== false || strpos($statut, 'attente') !== false): ?>
+                        <?php if (strpos($statut, 'en_attente') !== false || strpos($statut, 'attente') !== false){ ?>
                             <button class="btn-sm btn-cancel"><i class="bi bi-x"></i> Annuler</button>
-                        <?php else: ?>
+                        <?php } else { ?>
                             <span class="td-muted" style="font-size:.75rem">—</span>
-                        <?php endif; ?>
+                        <?php } ?>
                     </td>
                 </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
+                <?php } ?>
+            <?php } else { ?>
                 <tr>
                     <td colspan="7" style="text-align:center;color:#999;padding:2rem">
                         Aucune demande de congé trouvée.
                     </td>
                 </tr>
-            <?php endif; ?>
+            <?php } ?>
         </tbody>
     </table>
 </div>

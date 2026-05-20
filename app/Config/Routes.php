@@ -15,6 +15,7 @@ $routes->get('logout', 'GestionUser::deconnexion');
 $routes->group('employe', ['filter' => 'auth'], function($routes) {
     $routes->get('dashboard', 'GestionEmploye::dashboard');
     $routes->get('mes-demandes', 'GestionEmploye::mesDemandes');
+    $routes->get('calendrier', 'GestionEmploye::calendrier');
     $routes->get('nouvelle-demande', 'GestionEmploye::formulaireCongé');
     $routes->post('nouvelle-demande', 'GestionEmploye::soumettreConge');
     $routes->get('profil', 'GestionEmploye::profil');

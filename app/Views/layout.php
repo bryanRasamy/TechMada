@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= esc($title ?? 'TechMada RH') ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="<?= base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet" />
+    <link href="<?= base_url('assets/css/bootstrap-icons.min.css') ?>" rel="stylesheet" />
+    <link href="<?= base_url('assets/css/fonts.css') ?>" rel="stylesheet" />
     <link rel="stylesheet" href="<?= base_url('assets/app.css') ?>">
+    <?= $this->renderSection('head') ?>
 </head>
 
 <body>
-    <section id="page-dashboard-employe" style="margin-top:3rem">
+    <section id="page-dashboard-employe">
         <div class="app-wrap">
             <!-- SIDEBAR EMPLOYÉ -->
             <aside class="sidebar">
@@ -26,10 +27,11 @@
                     <li><a href="<?= base_url('employe/nouvelle-demande') ?>"><i class="bi bi-plus-circle"></i> Nouvelle demande</a></li>
                     <li>
                         <a href="<?= base_url('employe/mes-demandes') ?>">
-                            <i class="bi bi-calendar3"></i> Mes demandes
+                            <i class="bi bi-journal-text"></i> Mes demandes
                             <span class="nav-badge alert"><?= esc((string) ($nombreDemandesEnAttente ?? 0)) ?></span>
                         </a>
                     </li>
+                    <li><a href="<?= base_url('employe/calendrier') ?>"><i class="bi bi-calendar3"></i> Mon Calendrier</a></li>
                     <li><a href="<?= base_url('employe/profil') ?>"><i class="bi bi-person"></i> Mon profil</a></li>
                 </ul>
                 <div class="sidebar-user">
@@ -67,6 +69,8 @@
             </div>
         </div>
     </section>
+    
+    <?= $this->renderSection('scripts') ?>
 </body>
 
 </html>
