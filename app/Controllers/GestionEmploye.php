@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\CongesModel;
 use App\Models\EmployesModel;
 use App\Models\SoldesModel;
+use App\Models\TypesCongeModel;
 
 class GestionEmploye extends BaseController{
     public function mesDemandes(){
@@ -86,6 +87,128 @@ class GestionEmploye extends BaseController{
 
         return view('employe/mesDemandes', $donneesVue);
     }
+
+    public function formulaireCongé(){
+        $sessionEmploye = session()->get('user');
+
+        if (! $sessionEmploye || empty($sessionEmploye['id'])) {
+            return redirect()->to('/');
+        }
+
+        $idEmploye = $sessionEmploye['id'];
+
+        try {
+            $employeModele = new EmployesModel();
+            $typeCongeModele = new TypesCongeModel();
+            $congeModele = new CongesModel();
+
+            $donneesEmploye = $employeModele
+                ->select('employes.*, departements.nom AS nom_departement')
+                ->join('departements', 'departements.id = employes.departement_id', 'left')
+                ->find($idEmploye);
+
+            if (! $donneesEmploye) {
+                $donneesEmploye = $sessionEmploye;
+            }
+
+            $nomCompletEmploye = trim(sprintf('%s %s', $donneesEmploye['prenom'] ?? '', $donneesEmploye['nom'] ?? ''));
+            if ($nomCompletEmploye === '') {
+                $nomCompletEmploye = trim(sprintf('%s %s', $sessionEmploye['prenom'] ?? '', $sessionEmploye['nom'] ?? ''));
+            }
+
+            $initialesEmploye = [];
+            $morceauxNom = preg_split('/\s+/', $nomCompletEmploye ?: '');
+            if (is_array($morceauxNom)) {
+                foreach ($morceauxNom as $morceauNom) {
+                    if ($morceauNom !== '') {
+                        $initialesEmploye[] = strtoupper(substr($morceauNom, 0, 1));
+                    }
+
+                    if (count($initialesEmploye) >= 2) {
+                        break;
+                    }
+                }
+            }
+
+            $initialesEmploye = ! empty($initialesEmploye) ? implode('', $initialesEmploye) : 'EM';
+            $departementEmploye = $donneesEmploye['nom_departement'] ?? 'Non renseigné';
+
+            $typesConge = $typeCongeModele
+                ->orderBy('libelle', 'ASC')
+                ->findAll();
+
+            $nombreDemandesEnAttente = $congeModele
+                ->where('employe_id', $idEmploye)
+                ->whereIn('statut', ['en_attente', 'attente'])
+                ->countAllResults();
+
+            $donneesVue = [
+                'title' => 'Nouvelle demande',
+                'nomEmploye' => $nomCompletEmploye !== '' ? $nomCompletEmploye : 'Utilisateur',
+                'departementEmploye' => $departementEmploye,
+                'initialesEmploye' => $initialesEmploye,
+                'nombreDemandesEnAttente' => $nombreDemandesEnAttente,
+                'typesConge' => $typesConge,
+            ];
+        } catch (\Exception $e) {
+            $donneesVue = [
+                'title' => 'Nouvelle demande',
+                'nomEmploye' => trim(sprintf('%s %s', $sessionEmploye['prenom'] ?? '', $sessionEmploye['nom'] ?? '')),
+                'departementEmploye' => 'Non renseigné',
+                'initialesEmploye' => 'EM',
+                'nombreDemandesEnAttente' => 0,
+                'typesConge' => [],
+            ];
+        }
+
+        return view('employe/nouvelleDemande', $donneesVue);
+    }
+
+    public function soumettreConge(){
+        $sessionEmploye = session()->get('user');
+
+        if (! $sessionEmploye || empty($sessionEmploye['id'])) {
+            return redirect()->to('/');
+        }
+
+        $idEmploye = $sessionEmploye['id'];
+        $typeCongeId = (int) $this->request->getPost('type_conge_id');
+        $dateDebut = $this->request->getPost('date_debut');
+        $dateFin = $this->request->getPost('date_fin');
+        $motif = trim($this->request->getPost('motif'));
+
+        $nbJours = 0;
+        if ($dateDebut && $dateFin) {
+            try {
+                $dateDebutObj = new \DateTime($dateDebut);
+                $dateFinObj = new \DateTime($dateFin);
+                if ($dateFinObj >= $dateDebutObj) {
+                    $interval = $dateDebutObj->diff($dateFinObj);
+                    $nbJours = $interval->days + 1;
+                }
+            } catch (\Exception $e) {
+                $nbJours = 0;
+            }
+        }
+
+        $congeModele = new CongesModel();
+        $donneesConge = [
+            'employe_id' => $idEmploye,
+            'type_conge_id' => $typeCongeId,
+            'date_debut' => $dateDebut,
+            'date_fin' => $dateFin,
+            'nb_jours' => $nbJours,
+            'motif' => $motif,
+            'statut' => 'en_attente',
+        ];
+
+        if (! $congeModele->insert($donneesConge)) {
+            return redirect()->back()->withInput()->with('errors', $congeModele->errors());
+        }
+
+        return redirect()->to('employe/mes-demandes');
+    }
+    
 
     public function dashboard(){
         $sessionEmploye = session()->get('user');
