@@ -81,6 +81,28 @@
 
                     <div class="data-card">
                         <div class="data-card-head">
+                            <h3>Nombre total de demandes par type de congés</h3>
+                        </div>
+                        <div style="padding:1rem 1.25rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem">
+                            <?php if (! empty($totalDemandesParType)) { ?>
+                                <?php foreach ($totalDemandesParType as $totalType) { ?>
+                                    <div class="solde-card" style="margin:0">
+                                        <div class="solde-header">
+                                            <span class="solde-type"><?= esc($totalType['type_conge_nom'] ?? 'Inconnu') ?></span>
+                                            <span class="solde-nums"><strong><?= esc((string) $totalType['total_demandes']) ?></strong> demande(s)</span>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            <?php } else { ?>
+                                <div class="solde-card" style="margin:0;grid-column:1 / -1">
+                                    <div class="solde-label">Aucune demande trouvée.</div>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+
+                    <div class="data-card">
+                        <div class="data-card-head">
                             <h3>Mes dernières demandes</h3>
                             <a href="#page-mes-conges" style="font-size:.8rem;color:var(--forest);text-decoration:none">Voir tout →</a>
                         </div>

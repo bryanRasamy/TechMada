@@ -27,7 +27,7 @@
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
-                right: 'dayGridMonth,timeGridWeek'
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
             },
             events: [
                 <?php foreach($conges as $conge){ ?>

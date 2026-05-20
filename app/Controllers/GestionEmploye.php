@@ -192,6 +192,14 @@ class GestionEmploye extends BaseController{
                 ->get()
                 ->getResultArray();
 
+            $totalDemandesParType = (new CongesModel())
+                ->select('types_conge.libelle AS type_conge_nom, COUNT(conges.id) AS total_demandes')
+                ->join('types_conge', 'types_conge.id = conges.type_conge_id', 'left')
+                ->where('conges.employe_id', $idEmploye)
+                ->groupBy('conges.type_conge_id')
+                ->get()
+                ->getResultArray();
+
             $donneesVue = [
                 'title' => 'Tableau de bord',
                 'nomEmploye' => $nomCompletEmploye !== '' ? $nomCompletEmploye : 'Utilisateur',
@@ -206,6 +214,7 @@ class GestionEmploye extends BaseController{
                 'anneeSolde' => $anneeSolde,
                 'soldesEmploye' => $soldesEmploye,
                 'dernieresDemandes' => $dernieresDemandes,
+                'totalDemandesParType' => $totalDemandesParType,
             ];
         } catch (\Exception $e) {
             $donneesVue = [
@@ -222,6 +231,7 @@ class GestionEmploye extends BaseController{
                 'anneeSolde' => date('Y'),
                 'soldesEmploye' => [],
                 'dernieresDemandes' => [],
+                'totalDemandesParType' => [],
             ];
         }
 
