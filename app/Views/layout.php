@@ -22,15 +22,15 @@
                 </div>
                 <div class="sidebar-section">Menu</div>
                 <ul class="sidebar-nav">
-                    <li><a href="#page-dashboard-employe" class="active"><i class="bi bi-grid-1x2"></i> Tableau de bord</a></li>
-                    <li><a href="#page-form-conge"><i class="bi bi-plus-circle"></i> Nouvelle demande</a></li>
+                    <li><a href="<?= base_url('employe/dashboard') ?>" class="active"><i class="bi bi-grid-1x2"></i> Tableau de bord</a></li>
+                    <li><a href="<?= base_url('employe/nouvelle-demande') ?>"><i class="bi bi-plus-circle"></i> Nouvelle demande</a></li>
                     <li>
-                        <a href="#page-mes-conges">
+                        <a href="<?= base_url('employe/mes-demandes') ?>">
                             <i class="bi bi-calendar3"></i> Mes demandes
                             <span class="nav-badge alert"><?= esc((string) ($nombreDemandesEnAttente ?? 0)) ?></span>
                         </a>
                     </li>
-                    <li><a href="#page-profil-employe"><i class="bi bi-person"></i> Mon profil</a></li>
+                    <li><a href="<?= base_url('employe/profil') ?>"><i class="bi bi-person"></i> Mon profil</a></li>
                 </ul>
                 <div class="sidebar-user">
                     <div class="s-user-row">
@@ -51,7 +51,7 @@
                         <div class="topbar-breadcrumb">Accueil</div>
                     </div>
                     <div class="topbar-actions">
-                        <a href="#page-form-conge" class="btn-forest" style="padding:7px 14px;font-size:.82rem">
+                        <a href="<?= base_url('employe/nouvelle-demande') ?>" class="btn-forest" style="padding:7px 14px;font-size:.82rem">
                             <i class="bi bi-plus-lg"></i> Nouvelle demande
                         </a>
                     </div>
