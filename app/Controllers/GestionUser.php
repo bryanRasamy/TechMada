@@ -45,7 +45,15 @@ class GestionUser extends BaseController{
                 'actif' => $employer['actif']
             ]);
 
-            return redirect()->to('employe/dashboard')->with('success', 'Connexion réussie.');
+            // Redirection selon le rôle
+            $urlRedirection = 'employe/dashboard';
+            if ($employer['role'] === 'admin') {
+                $urlRedirection = 'admin/dashboard';
+            } elseif ($employer['role'] === 'rh') {
+                $urlRedirection = 'rh/dashboard';
+            }
+
+            return redirect()->to($urlRedirection)->with('success', 'Connexion réussie.');
         }
 
         $errorMsg = 'Email ou mot de passe incorrect.';

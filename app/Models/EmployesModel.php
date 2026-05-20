@@ -22,9 +22,9 @@ class EmployesModel extends Model{
         'prenom' => 'required|max_length[255]',
         'email' => 'required|valid_email|is_unique[employes.email]',
         'password' => 'required|min_length[8]',
-        'role' => 'required|in_list[admin,employee]',
+        'role' => 'required|in_list[admin,employe,rh]',
         'departement_id' => 'required|integer',
-        'date_embauche' => 'required|date',
+        'date_embauche' => 'required',
         'actif' => 'permit_empty|in_list[0,1]'
     ];
 }
