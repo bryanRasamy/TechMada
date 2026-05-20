@@ -5,10 +5,6 @@
 <section id="page-form-conge">
   <div class="app-wrap">
     <div class="content">
-<<<<<<< Updated upstream
-      <?php $errors = session('errors') ?? []; ?>
-      <form action="<?= base_url('employe/nouvelle-demande/ajout') ?>" method="post">
-=======
       <?php if (session()->getFlashdata('error')){ ?>
             <div class="flash flash-error">
                 <i class="bi bi-exclamation-circle-fill"></i>
@@ -18,7 +14,6 @@
       
       <form action="<?= base_url('employe/nouvelle-demande/ajout') ?>" method="post">
         <?= csrf_field() ?>
->>>>>>> Stashed changes
         <div style="display:grid;grid-template-columns:1fr 300px;gap:1.5rem;align-items:start" class="form-layout">
 
           <div>
