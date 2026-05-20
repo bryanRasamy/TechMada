@@ -27,3 +27,8 @@ INSERT INTO soldes(employe_id,type_conge_id,annee,jours_attribues,jours_pris) VA
 (4,1,2026,30,0),
 (4,2,2026,20,0),
 (4,3,2026,90,0);
+
+INSERT INTO conges(employe_id,type_conge_id,date_debut,date_fin,nb_jours,motif,statut) VALUES
+(3,1,'2026-07-01','2026-07-15',10,'Vacances d\'été','en_attente'),
+(3,2,'2026-08-05','2026-08-10',5,'Grippe','approuvée'),
+(4,1,'2026-09-01','2026-09-30',20,'Voyage','en_attente');
