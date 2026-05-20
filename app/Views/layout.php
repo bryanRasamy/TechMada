@@ -23,16 +23,16 @@
                 </div>
                 <div class="sidebar-section">Menu</div>
                 <ul class="sidebar-nav">
-                    <li><a href="<?= base_url('employe/dashboard') ?>" class="active"><i class="bi bi-grid-1x2"></i> Tableau de bord</a></li>
-                    <li><a href="<?= base_url('employe/nouvelle-demande') ?>"><i class="bi bi-plus-circle"></i> Nouvelle demande</a></li>
+                    <li><a href="<?= base_url('employe/dashboard') ?>" class="<?= url_is('employe/dashboard') ? 'active' : '' ?>"><i class="bi bi-grid-1x2"></i> Tableau de bord</a></li>
+                    <li><a href="<?= base_url('employe/nouvelle-demande') ?>" class="<?= url_is('employe/nouvelle-demande') ? 'active' : '' ?>"><i class="bi bi-plus-circle"></i> Nouvelle demande</a></li>
                     <li>
-                        <a href="<?= base_url('employe/mes-demandes') ?>">
+                        <a href="<?= base_url('employe/mes-demandes') ?>" class="<?= url_is('employe/mes-demandes') ? 'active' : '' ?>">
                             <i class="bi bi-journal-text"></i> Mes demandes
                             <span class="nav-badge alert"><?= esc((string) ($nombreDemandesEnAttente ?? 0)) ?></span>
                         </a>
                     </li>
-                    <li><a href="<?= base_url('employe/calendrier') ?>"><i class="bi bi-calendar3"></i> Mon Calendrier</a></li>
-                    <li><a href="<?= base_url('employe/profil') ?>"><i class="bi bi-person"></i> Mon profil</a></li>
+                    <li><a href="<?= base_url('employe/calendrier') ?>" class="<?= url_is('employe/calendrier') ? 'active' : '' ?>"><i class="bi bi-calendar3"></i> Mon Calendrier</a></li>
+                    <li><a href="<?= base_url('employe/profil') ?>" class="<?= url_is('employe/profil') ? 'active' : '' ?>"><i class="bi bi-person"></i> Mon profil</a></li>
                 </ul>
                 <div class="sidebar-user">
                     <div class="s-user-row">
